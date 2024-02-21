@@ -11,10 +11,12 @@ public class GameOfLife {
 		String fileName = args[0];
 		//// Uncomment the test that you want to execute, and re-compile.
 		//// (Run one test at a time).
-		//// test1(fileName);
-		//// test2(fileName);
-		//// test3(fileName, 3);
+		// test1("pulsar.dat");
+		// testcellneighbors("pulsar.dat");
+		// test1("pulsar.dat");
+		// print(evolve(read("pulsar.dat")));
 		//// play(fileName);
+		test3(fileName, 3);
 	}
 	
 	// Reads the data file and prints the initial board.
@@ -30,6 +32,11 @@ public class GameOfLife {
 		//// Write here code that tests that the count and cellValue functions
 		//// are working properly, and returning the correct values.
 	}
+	private static void testcellneighbors(String fileName)
+	{
+		    int[][] board = read(fileName);
+            System.out.println(count(board, 3, 1));
+	}
 		
 	// Reads the data file, plays the game for Ngen generations, 
 	// and prints the board at the beginning of each generation.
@@ -43,13 +50,14 @@ public class GameOfLife {
 	}
 		
 	// Reads the data file and plays the game, for ever.
-	public static void play(String fileName) {
+	/*public static void play(String fileName) {
 		int[][] board = read(fileName);
 		while (true) {
 			show(board);
 			board = evolve(board);
 		}
 	}
+	*/
 	
 	// Reads the initial board configuration from the file whose name is fileName, uses the data
 	// to construct and populate a 2D array that represents the game board, and returns this array.
@@ -59,20 +67,60 @@ public class GameOfLife {
 	// of this frame as representing the infinite number of dead cells that exist in every direction.
 	// This function assumes that the input file contains valid data, and does no input testing.
 	public static int[][] read(String fileName) {
-		In in = new In(fileName); // Constructs an In object for reading the input file
-		int rows = Integer.parseInt(in.readLine());
-		int cols = Integer.parseInt(in.readLine());
-		int[][] board = new int[rows + 2][cols + 2];
+        In f=new In(fileName);
+ 	// Constructs an In object for reading the input file
+		int rows = Integer.parseInt(f.readLine());
+		int cols = Integer.parseInt(f.readLine());
+		int arr[][]=new int[rows+2][cols+2];
+		for(int i=0;i<arr.length;i++)
+		{
+			for(int j=0;j<arr.length;j++)
+			{
+                arr[i][j]=0;
+			}
+		}
+		for(int i=1;i<arr.length;i++)//allive the board
+		{
+			String s=f.readLine();//represent a line from the chosen file
+	       if(s!=""&&s!=null)
+			{int k=0;
+			for(int j=1;j<arr.length&&k<s.length();j++)
+			{
+				    if(s.charAt(k)=='x')
+				    {
+                        arr[i][j]=1;
+				    }
+					else 
+					{
+					arr[i][j]=0;
+					
+					}
+				k++;
+			}
+			k=0;
+		   }
+		}
+		return arr;
 		//// Replace the following statement with your code.
-		return null;
+	     
 	}
 	
 	// Creates a new board from the given board, using the rules of the game.
 	// Uses the cellValue(board,i,j) function to compute the value of each 
 	// cell in the new board. Returns the new board.
 	public static int[][] evolve(int[][] board) {
-		//// Replace the following statement with your code.
-		return null;
+		//// Replace the following statement with your code
+		int arr[][]=new int[board.length][board.length];
+		for(int i=1;i<board.length-1;i++)
+		{
+			for(int j=1;j<board.length-1;j++)
+			{
+				arr[i][j]=cellValue(board, i, j);
+
+			}
+		}
+		return arr;
+		
 	}
 
 	// Returns the value that cell (i,j) should have in the next generation.
@@ -85,8 +133,20 @@ public class GameOfLife {
 	// Assumes that j is at least 1 and at most the number of columns in the board - 1. 
 	// Uses the count(board,i,j) function to count the number of alive neighbors.
 	public static int cellValue(int[][] board, int i, int j) {
-		//// Replace the following statement with your code.
-		return 0;
+		int neighbors=count(board, i, j);//number of neighbors around this cell
+		int dOl=board[i][j];//alive or dead
+		if(dOl==1)
+		{
+			if(neighbors<2||neighbors>3)
+				return 0;
+			if(neighbors==2||neighbors==3)
+                return 1;
+              return  board[i][j];
+		}
+		 if(neighbors==3)
+			return 1;
+			return board[i][j];
+
 	}
 	
 	// Counts and returns the number of living neighbors of the given cell
@@ -95,12 +155,39 @@ public class GameOfLife {
 	// Assumes that j is at least 1 and at most the number of columns in the board - 1. 
 	public static int count(int[][] board, int i, int j) {
 		//// Replace the following statement with your code.
-		return 0;
+		int livingneighbors=0;
+		int row=i-1,col=j-1;
+     //for every cell that i get i refer to his neighbors as 2d array 
+		for(int k=row;k<=(i+1);k++)
+		{
+			for(int v=col;v<=j+1;v++)
+			{
+				if(k!=i||v!=j)//assure that its not the chosen cell
+				{
+					if(board[k][v]==1)
+					{
+						livingneighbors++;
+					}
+				}
+			}
+
+		}
+		
+		return livingneighbors;
 	}
 	
 	// Prints the board. Alive and dead cells are printed as 1 and 0, respectively.
     public static void print(int[][] arr) {
-		//// Write your code here.
+		for(int i=1;i<arr.length-1;i++)
+		{
+			for(int j=1;j<arr.length-1;j++)
+			{
+				System.out.print(arr[i][j]);
+			}
+			System.out.println();
+		}
+       
+		
 	}
 		
     // Displays the board. Living and dead cells are represented by black and white squares, respectively.
@@ -108,7 +195,7 @@ public class GameOfLife {
     // In order to handle any given board size, we scale the X and Y dimensions according to the board size.
     // This results in the following visual effect: The smaller the board, the larger the squares
 	// representing cells.
-	public static void show(int[][] board) {
+	/*public static void show(int[][] board) {
 		StdDraw.setCanvasSize(900, 900);
 		int rows = board.length;
 		int cols = board[0].length;
@@ -135,4 +222,5 @@ public class GameOfLife {
 		StdDraw.show();
 		StdDraw.pause(100); 
 	}
+	*/
 }
