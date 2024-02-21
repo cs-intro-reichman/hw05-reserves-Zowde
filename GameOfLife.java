@@ -184,7 +184,7 @@ public class GameOfLife {
 			{       if(j==arr.length-2)
 				  System.out.print(arr[i][j]);
 			       else
-				System.out.print(arr[i][j]+"  ");
+				System.out.print("  "+arr[i][j]);
 			}
 			System.out.println();
 		}
