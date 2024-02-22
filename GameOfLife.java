@@ -182,7 +182,10 @@ public class GameOfLife {
 		{
 			for(int j=1;j<arr[i].length-1;j++)
 			{
-				if(j==(arr[i].length-2))//lastcell
+				
+				
+				 System.out.print("%3s",arr[i][j]);
+				/*if(j==(arr[i].length-2))//lastcell
 			        System.out.print(arr[i][j]+"\n"+" ");
 				  else
 				  {
@@ -191,6 +194,7 @@ public class GameOfLife {
 					else
 					System.out.print(" "+arr[i][j]+"  ");
 				  }
+                               */
 		       }  
 		
 		}
