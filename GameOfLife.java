@@ -11,11 +11,7 @@ public class GameOfLife {
 		String fileName = args[0];
 		//// Uncomment the test that you want to execute, and re-compile.
 		//// (Run one test at a time).
-		// test1("pulsar.dat");
-		// testcellneighbors("pulsar.dat");
-		// test1("pulsar.dat");
-		// print(evolve(read("pulsar.dat")));
-		//// play(fileName);
+		//print(read("lin.dat"));
 		test3(fileName, 3);
 	}
 	
@@ -74,7 +70,7 @@ public class GameOfLife {
 		int arr[][]=new int[rows+2][cols+2];
 		for(int i=0;i<arr.length;i++)
 		{
-			for(int j=0;j<arr.length;j++)
+			for(int j=0;j<arr[i].length;j++)
 			{
                 arr[i][j]=0;
 			}
@@ -84,7 +80,7 @@ public class GameOfLife {
 			String s=f.readLine();//represent a line from the chosen file
 	       if(s!=""&&s!=null)
 			{int k=0;
-			for(int j=1;j<arr.length&&k<s.length();j++)
+			for(int j=1;j<arr[i].length&&k<s.length();j++)
 			{
 				    if(s.charAt(k)=='x')
 				    {
@@ -103,6 +99,10 @@ public class GameOfLife {
 		return arr;
 		//// Replace the following statement with your code.
 	     
+
+
+
+
 	}
 	
 	// Creates a new board from the given board, using the rules of the game.
@@ -113,7 +113,7 @@ public class GameOfLife {
 		int arr[][]=new int[board.length][board.length];
 		for(int i=1;i<board.length-1;i++)
 		{
-			for(int j=1;j<board.length-1;j++)
+			for(int j=1;j<(board[i].length-1);j++)
 			{
 				arr[i][j]=cellValue(board, i, j);
 
@@ -180,11 +180,9 @@ public class GameOfLife {
     public static void print(int[][] arr) {
 		for(int i=1;i<arr.length-1;i++)
 		{
-			for(int j=1;j<arr.length-1;j++)
-			{       if(j==arr.length-2)
-				  System.out.print("  "+arr[i][j]);
-			       else
-				System.out.print("  "+arr[i][j]);
+			for(int j=1;j<arr[i].length-1;j++)
+			{
+				System.out.print(arr[i][j]+"  ");
 			}
 			System.out.println();
 		}
