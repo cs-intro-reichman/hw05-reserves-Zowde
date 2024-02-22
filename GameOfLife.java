@@ -182,11 +182,13 @@ public class GameOfLife {
 		{
 			for(int j=1;j<arr[i].length-1;j++)
 			{
-				if(j==arr[i].length-2)
-					System.out.print(arr[i][j]);
-				else
-				System.out.print(arr[i][j]+"  ");
-			}
+				if(i==1&&j==1)//first line
+				{
+				System.out.print(" "+arr[i][j]+"  ");
+				}else
+				System.out.print(" "+arr[i][j]+"  ");
+
+			        }
 			System.out.println( );
 		}
        
