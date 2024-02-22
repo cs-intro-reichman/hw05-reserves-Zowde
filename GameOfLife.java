@@ -184,7 +184,7 @@ public class GameOfLife {
 			{
 				
 				
-				 System.out.print("%3s",arr[i][j]);
+				 System.out.printf("%3s",arr[i][j]);
 				/*if(j==(arr[i].length-2))//lastcell
 			        System.out.print(arr[i][j]+"\n"+" ");
 				  else
