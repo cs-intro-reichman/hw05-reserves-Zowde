@@ -178,16 +178,17 @@ public class GameOfLife {
 	
 	// Prints the board. Alive and dead cells are printed as 1 and 0, respectively.
     public static void print(int[][] arr) {
-		for(int i=1;i<arr.length-1;i++){
-			for(int j=1;j<arr[i].length-1;j++){
-				if(j==(arr[i].length-2)){
-					System.out.print(arr[i][j]);
-				}
-				else if(i==1&&j==1){//first line
-				System.out.print(" "+arr[i][j]+"  ");
-				}
-				else
-				System.out.print(" "+arr[i][j]+"  ");
+		for(int i=1;i<arr.length-1;i++)
+		{
+			for(int j=1;j<arr[i].length-1;j++)
+			{
+				
+				if(j==(arr[i].length-2))//lastcell
+			             System.out.print(arr[i][j]);
+				  else
+				  {
+					System.out.print(arr[i][j]+"  ");
+				  }
 		       }  
 		
 			System.out.println( );
